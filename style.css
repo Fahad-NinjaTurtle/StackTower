@@ -1,0 +1,159 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #b894ff;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+}
+
+/* Portrait container */
+#game-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+}
+
+#game-container {
+  height: 100vh;
+  width: min(100vw, calc(100vh * 0.5625)); /* 9:16 */
+}
+
+/* UI overlay */
+#ui {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* SCORE */
+#score {
+  margin-top: 20px;
+  font-size: 34px;
+  font-weight: 800;
+  color: rgba(60, 60, 60, 0.75);
+  background: rgba(255, 255, 255, 0.35);
+  padding: 8px 20px;
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+}
+
+
+/* SCREENS */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.screen {
+  gap: 20px;
+}
+
+.screen.active {
+  display: flex;
+}
+
+button {
+  pointer-events: auto;
+  padding: 14px 36px;
+  border-radius: 14px;
+  border: 2px solid rgba(255,255,255,0.8);
+  background: transparent;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+#final-score {
+  font-size: 72px;
+  font-weight: 900;
+  color: rgba(60, 60, 60, 0.8);
+
+  background: rgba(255, 255, 255, 0.4);
+  padding: 18px 36px;
+  border-radius: 28px;
+
+  margin-bottom: 28px;
+
+  backdrop-filter: blur(8px);
+}
+
+
+button {
+  pointer-events: auto;
+  padding: 20px 64px;
+  border-radius: 22px;
+
+  /* glassy pastel button */
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+
+  border: 2px solid rgba(255, 255, 255, 0.6);
+
+  color: rgba(50, 50, 50, 0.85);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 1px;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.08);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.06);
+}
+
+button:active {
+  transform: scale(0.95);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.1);
+}
+#high-score {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  color: rgba(60, 60, 60, 0.55);
+  background: rgba(255, 255, 255, 0.25);
+  padding: 4px 14px;
+  border-radius: 14px;
+
+  backdrop-filter: blur(6px);
+}
+
+#gameover-high-score {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  color: rgba(60, 60, 60, 0.6);
+  background: rgba(255, 255, 255, 0.25);
+  padding: 6px 18px;
+  border-radius: 16px;
+
+  margin-bottom: 20px;
+
+  backdrop-filter: blur(6px);
+}
+
+#hud {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}

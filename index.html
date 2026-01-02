@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+
+    <title>Stacking Tower</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- GAME -->
+    <div id="game-wrap">
+      <div id="game-container"></div>
+    </div>
+
+    <!-- UI OVERLAY -->
+    <div id="ui">
+      <!-- SCORE -->
+<div id="hud">
+  <div id="score">0</div>
+  <div id="high-score">BEST 0</div>
+</div>
+
+
+      <!-- START SCREEN -->
+      <div id="start-screen" class="screen active">
+        <button id="start-btn">START THE GAME</button>
+      </div>
+
+      <!-- GAME OVER -->
+      <div id="gameover-screen" class="screen">
+        <div id="final-score">15</div>
+        <div id="gameover-high-score">BEST 0</div>
+        <button id="restart-btn">BEAT IT!</button>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.min.js"></script>
+    <script src="ui.js"></script>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
