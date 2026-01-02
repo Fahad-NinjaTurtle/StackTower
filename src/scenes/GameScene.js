@@ -5,7 +5,9 @@ export default class GameScene extends Phaser.Scene {
   constructor() {
     super("GameScene");
   }
-
+  preload() {
+    this.load.audio("place", "assets/Place Sound.mp3");
+  }
   create() {
     this.cameras.main.setBackgroundColor(GameConfig.COLORS.BACKGROUND);
 
@@ -21,7 +23,11 @@ export default class GameScene extends Phaser.Scene {
     window.UI.updateScore(0);
     window.UI.updateHighScore(this.scoreManager.highScore);
     this.input.on("pointerdown", this.handleDrop, this);
+    this.createParticleTexture();
 
+    this.sfx = {
+      place: this.sound.add("place", { volume: 0.6 }),
+    };
     // Base block
     const base = new Block(
       this,
@@ -38,6 +44,10 @@ export default class GameScene extends Phaser.Scene {
   }
   startGame() {
     this.gameStarted = true;
+
+    if (this.sound.locked) {
+      this.sound.unlock();
+    }
   }
 
   spawnMovingBlock() {
@@ -75,6 +85,13 @@ export default class GameScene extends Phaser.Scene {
     // HTML sides
     document.body.style.backgroundColor = `rgb(${pastel.r}, ${pastel.g}, ${pastel.b})`;
   }
+  createParticleTexture() {
+    const g = this.add.graphics();
+    g.fillStyle(0xffffff, 1);
+    g.fillCircle(4, 4, 4);
+    g.generateTexture("perfect-particle", 8, 8);
+    g.destroy();
+  }
 
   handleDrop() {
     if (!this.gameStarted) return;
@@ -104,7 +121,7 @@ export default class GameScene extends Phaser.Scene {
 
       return;
     }
-
+    this.sfx.place.play();
     this.blocks.push(this.currentBlock);
     this.updateBackgroundColor(this.currentBlock.rect.fillColor);
     this.moveCameraUp();
@@ -112,7 +129,39 @@ export default class GameScene extends Phaser.Scene {
     this.scoreManager.increment();
     window.UI.updateScore(this.scoreManager.score);
     window.UI.updateHighScore(this.scoreManager.highScore);
+    const isPerfect = this.isPerfectPlacement(this.currentBlock, prev);
+
+    if (isPerfect) {
+      this.playPerfectParticles(this.currentBlock);
+    }
   }
+  isPerfectPlacement(current, previous) {
+    return (
+      Math.abs(current.rect.x - previous.rect.x) <= GameConfig.PERFECT.THRESHOLD
+    );
+  }
+  playPerfectParticles(block) {
+    const particles = this.add.particles(
+      block.rect.x,
+      block.rect.y - block.height / 2,
+      "perfect-particle",
+      {
+        speed: { min: 30, max: 90 },
+        angle: { min: 200, max: 340 },
+        scale: { start: 0.8, end: 0 },
+        alpha: { start: 0.8, end: 0 },
+        lifespan: 400,
+        quantity: 10,
+        blendMode: "ADD",
+      }
+    );
+
+    // auto-destroy emitter
+    this.time.delayedCall(450, () => {
+      particles.destroy();
+    });
+  }
+
   focusOnBaseBlock() {
     const cam = this.cameras.main;
 

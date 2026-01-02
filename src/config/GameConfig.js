@@ -15,6 +15,10 @@ export const GameConfig = {
     START_Y: 820,
     STEP_Y: 44,
   },
+  
+  PERFECT: {
+    THRESHOLD: 6, // pixels
+  },
 
   COLORS: {
     BACKGROUND: "#700359ff",
